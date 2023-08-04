@@ -1,0 +1,11 @@
+﻿{
+  "profiles": {
+    "cobra.service.mail.listener.communications": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

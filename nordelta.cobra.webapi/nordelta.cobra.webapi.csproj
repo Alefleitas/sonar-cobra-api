@@ -1,0 +1,218 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>09a741e2-3e72-46b4-af87-371b7dd0aee7</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DisableImplicitAssetTargetFallback>true</DisableImplicitAssetTargetFallback>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20190926190643_Se agrega SACARESTO.cs" />
+    <Compile Remove="Migrations\20190926190643_Se agrega SACARESTO.Designer.cs" />
+    <Compile Remove="Migrations\20191119043412_InitialMigration.cs" />
+    <Compile Remove="Migrations\20191119043412_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20191119060635_addFormatedNameToArchivoDeuda.cs" />
+    <Compile Remove="Migrations\20191119060635_addFormatedNameToArchivoDeuda.Designer.cs" />
+    <Compile Remove="Migrations\20191119173822_UniqueIndexes.cs" />
+    <Compile Remove="Migrations\20191119173822_UniqueIndexes.Designer.cs" />
+    <Compile Remove="Migrations\20191120141540_Index-on-NroComprobante-on-DetalleDeuda-table.cs" />
+    <Compile Remove="Migrations\20191120141540_Index-on-NroComprobante-on-DetalleDeuda-table.Designer.cs" />
+    <Compile Remove="Migrations\20200424153438_AddNotificationsModule.cs" />
+    <Compile Remove="Migrations\20200424153438_AddNotificationsModule.Designer.cs" />
+    <Compile Remove="Migrations\20200424154230_AddNotificationsModule.cs" />
+    <Compile Remove="Migrations\20200424154230_AddNotificationsModule.Designer.cs" />
+    <Compile Remove="Migrations\20200424171258_AddNotificationsModule.cs" />
+    <Compile Remove="Migrations\20200424171258_AddNotificationsModule.Designer.cs" />
+    <Compile Remove="Migrations\20200424172838_NotificationsModule.cs" />
+    <Compile Remove="Migrations\20200424172838_NotificationsModule.Designer.cs" />
+    <Compile Remove="Migrations\20200424184800_AddNotificationModels.cs" />
+    <Compile Remove="Migrations\20200424184800_AddNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200424195155_AddNotificationMoldes.cs" />
+    <Compile Remove="Migrations\20200424195155_AddNotificationMoldes.Designer.cs" />
+    <Compile Remove="Migrations\20200424195520_AddNotificationModels.cs" />
+    <Compile Remove="Migrations\20200424195520_AddNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200424202050_AddNotificationModels.cs" />
+    <Compile Remove="Migrations\20200424202050_AddNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506160645_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506160645_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506161043_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506161043_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506162908_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506162908_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506185006_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506185006_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506190806_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506190806_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506191055_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506191055_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506193009_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506193009_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506193113_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506193113_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506194009_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506194009_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506194304_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506194304_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506195833_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506195833_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200506211248_AddNewNotificationModels.cs" />
+    <Compile Remove="Migrations\20200506211248_AddNewNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200507192644_UpdateAccountBalance_AddCommunication.cs" />
+    <Compile Remove="Migrations\20200507192644_UpdateAccountBalance_AddCommunication.Designer.cs" />
+    <Compile Remove="Migrations\20200515012701_UpdateAccounBalance_Communication_AddContactDetail.cs" />
+    <Compile Remove="Migrations\20200515012701_UpdateAccounBalance_Communication_AddContactDetail.Designer.cs" />
+    <Compile Remove="Migrations\20200515144127_AddNotificationModels.cs" />
+    <Compile Remove="Migrations\20200515144127_AddNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200519184452_AddNotificationModels.cs" />
+    <Compile Remove="Migrations\20200519184452_AddNotificationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200520192944_UpdateCommunicationModelForNotifications.cs" />
+    <Compile Remove="Migrations\20200520192944_UpdateCommunicationModelForNotifications.Designer.cs" />
+    <Compile Remove="Migrations\20200520193207_UpdateCommunicationModelForNotifications.cs" />
+    <Compile Remove="Migrations\20200520193207_UpdateCommunicationModelForNotifications.Designer.cs" />
+    <Compile Remove="Migrations\20200520193802_UpdateCommunicationModelForNotifications.cs" />
+    <Compile Remove="Migrations\20200520193802_UpdateCommunicationModelForNotifications.Designer.cs" />
+    <Compile Remove="Migrations\20200520195338_UpdateCommunicationModelForNotifications.cs" />
+    <Compile Remove="Migrations\20200520195338_UpdateCommunicationModelForNotifications.Designer.cs" />
+    <Compile Remove="Migrations\20200521140029_UpdateCommunicationsForNotifications.cs" />
+    <Compile Remove="Migrations\20200521140029_UpdateCommunicationsForNotifications.Designer.cs" />
+    <Compile Remove="Migrations\20200521143203_MergedNotificationAndCommunicationModels.cs" />
+    <Compile Remove="Migrations\20200521143203_MergedNotificationAndCommunicationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200521144359_MergedNotificationAndCommunicationModels.cs" />
+    <Compile Remove="Migrations\20200521144359_MergedNotificationAndCommunicationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200601210426_TemplateModelsAndNotificationUpdates.cs" />
+    <Compile Remove="Migrations\20200601210426_TemplateModelsAndNotificationUpdates.Designer.cs" />
+    <Compile Remove="Migrations\20200626145231_AddCommunicationCreationUserId.cs" />
+    <Compile Remove="Migrations\20200626145231_AddCommunicationCreationUserId.Designer.cs" />
+    <Compile Remove="Migrations\20200720190311_FixedContactDetails.cs" />
+    <Compile Remove="Migrations\20200720190311_FixedContactDetails.Designer.cs" />
+    <Compile Remove="Migrations\20200720192848_FixedContactDetails.cs" />
+    <Compile Remove="Migrations\20200720192848_FixedContactDetails.Designer.cs" />
+    <Compile Remove="Migrations\20200720202848_LinkedContactIdToCommunication.cs" />
+    <Compile Remove="Migrations\20200720202848_LinkedContactIdToCommunication.Designer.cs" />
+    <Compile Remove="Migrations\20200722161246_AddedBUToAccountBalance.cs" />
+    <Compile Remove="Migrations\20200722161246_AddedBUToAccountBalance.Designer.cs" />
+    <Compile Remove="Migrations\20200722201010_OverduePaymentDate to string.cs" />
+    <Compile Remove="Migrations\20200722201010_OverduePaymentDate to string.Designer.cs" />
+    <Compile Remove="Migrations\20200921171324_RefactorAndNewQuotations.cs" />
+    <Compile Remove="Migrations\20200921171324_RefactorAndNewQuotations.Designer.cs" />
+    <Compile Remove="Migrations\20200921180910_RefactorAndNewQuotations.cs" />
+    <Compile Remove="Migrations\20200921180910_RefactorAndNewQuotations.Designer.cs" />
+    <Compile Remove="Migrations\20200921181255_RefactorAndNewQuotations.cs" />
+    <Compile Remove="Migrations\20200921181255_RefactorAndNewQuotations.Designer.cs" />
+    <Compile Remove="Migrations\20200922221855_RefactorQuotationModels.cs" />
+    <Compile Remove="Migrations\20200922221855_RefactorQuotationModels.Designer.cs" />
+    <Compile Remove="Migrations\20200928170252_RefactorQuotationModel.cs" />
+    <Compile Remove="Migrations\20200928170252_RefactorQuotationModel.Designer.cs" />
+    <Compile Remove="Migrations\20200928170631_RefactorQuotationModel.cs" />
+    <Compile Remove="Migrations\20200928170631_RefactorQuotationModel.Designer.cs" />
+    <Compile Remove="Migrations\20201001153405_AddedSourceToQuotation.cs" />
+    <Compile Remove="Migrations\20201001153405_AddedSourceToQuotation.Designer.cs" />
+    <Compile Remove="Migrations\20201201140011_AddedCACQuotation.cs" />
+    <Compile Remove="Migrations\20201201140011_AddedCACQuotation.Designer.cs" />
+    <Compile Remove="Migrations\20210316114315_AddRepeatedDebtDetail.cs" />
+    <Compile Remove="Migrations\20210316114315_AddRepeatedDebtDetail.Designer.cs" />
+    <Compile Remove="Migrations\20210316115119_AddRepeatedDebtDetail.cs" />
+    <Compile Remove="Migrations\20210316115119_AddRepeatedDebtDetail.Designer.cs" />
+    <Compile Remove="Migrations\20210316115715_AddRepeatedDebtDetail.cs" />
+    <Compile Remove="Migrations\20210316115715_AddRepeatedDebtDetail.Designer.cs" />
+    <Compile Remove="Migrations\20210316193811_AddRepeatedDebtDetail.cs" />
+    <Compile Remove="Migrations\20210316193811_AddRepeatedDebtDetail.Designer.cs" />
+    <Compile Remove="Migrations\20210517192156_AddCacheTable.cs" />
+    <Compile Remove="Migrations\20210517192156_AddCacheTable.Designer.cs" />
+    <Compile Remove="Migrations\20210924141104_AddAdvanceFees.cs" />
+    <Compile Remove="Migrations\20210924141104_AddAdvanceFees.Designer.cs" />
+    <Compile Remove="Migrations\20211215191340_AddPublishedDebtFiles.cs" />
+    <Compile Remove="Migrations\20211215191340_AddPublishedDebtFiles.Designer.cs" />
+    <Compile Remove="Migrations\20220503130009_AddPaymentReports.cs" />
+    <Compile Remove="Migrations\20220503130009_AddPaymentReports.Designer.cs" />
+    <Compile Remove="Migrations\20220503183732_AddPaymentReports.cs" />
+    <Compile Remove="Migrations\20220503183732_AddPaymentReports.Designer.cs" />
+    <Compile Remove="Migrations\20220504125348_AddPaymentReports.cs" />
+    <Compile Remove="Migrations\20220504125348_AddPaymentReports.Designer.cs" />
+    <Compile Remove="Migrations\20220715200856_AddColumnOlapMethodInPaymentMethodAndRefactorPaymentReport.cs" />
+    <Compile Remove="Migrations\20220715200856_AddColumnOlapMethodInPaymentMethodAndRefactorPaymentReport.Designer.cs" />
+    <Compile Remove="Migrations\20221003032315_AddTableDashboardQuotations.cs" />
+    <Compile Remove="Migrations\20221003032315_AddTableDashboardQuotations.Designer.cs" />
+    <Compile Remove="Migrations\20221003032629_AddTableDashboardQuotations.cs" />
+    <Compile Remove="Migrations\20221003032629_AddTableDashboardQuotations.Designer.cs" />
+    <Compile Remove="Repositories\SsoEmpresaRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BankAccountFiles\" />
+    <Folder Include="ClientFiles\" />
+    <Folder Include="ExchangeRateFiles\" />
+    <Folder Include="Models\Types\" />
+    <Folder Include="PaymentsFiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="CoinAPI.REST.V1" Version="2.0.9" />
+    <PackageReference Include="CsvHelper" Version="27.2.1" />
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="ExcelMapper" Version="5.2.405" />
+    <PackageReference Include="FileHelpers" Version="3.5.1" />
+    <PackageReference Include="Hangfire" Version="1.7.30" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.30" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.30" />
+    <PackageReference Include="JsonModelBinder" Version="2.1.1" />
+    <PackageReference Include="MailKit" Version="3.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="6.2.18" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.5" ExcludeAssets="All" />
+    <PackageReference Include="Nordelta.HttpRequestMiddleware" Version="1.0.24" />
+    <PackageReference Include="Nordelta.Monitoreo" Version="0.2.0" />
+    <PackageReference Include="Nordelta.Monitoreo.Nagios" Version="0.3.0" />
+    <PackageReference Include="PgpCore" Version="5.8.1" />
+    <PackageReference Include="RestSharp" Version="106.15.0" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+    <PackageReference Include="Serilog.Exceptions" Version="8.2.0" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="4.2.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="serilog.sinks.graylog" Version="2.3.0" />
+    <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.19.0" />
+    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="6.0.1" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.9.0" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.9.0" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.9.0" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.9.0" />
+    <PackageReference Include="TimeZoneConverter" Version="5.0.0" />
+    <PackageReference Include="WinSCP" Version="5.21.3" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.326103">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\images\tux.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties appsettings_1json__JsonSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

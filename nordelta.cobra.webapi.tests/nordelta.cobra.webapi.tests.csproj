@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DisableImplicitAssetTargetFallback>true</DisableImplicitAssetTargetFallback>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Certificates\**" />
+    <EmbeddedResource Remove="Certificates\**" />
+    <None Remove="Certificates\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.17.0" />
+    <PackageReference Include="FileHelpers" Version="3.5.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <PackageReference Include="Moq" Version="4.18.1" />
+    <PackageReference Include="Nordelta.Monitoreo" Version="0.2.0" />
+    <PackageReference Include="Nordelta.Monitoreo.Nagios" Version="0.3.0" />
+    <PackageReference Include="PgpCore" Version="5.8.1" />
+    <PackageReference Include="WinSCP" Version="5.21.3" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.326103">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\nordelta.cobra.webapi\nordelta.cobra.webapi.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Services\appsettings5days.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Services\appsettingsmonths.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Services\appsettingsweek.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Services\disableAllChecks.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Services\appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="CobraTestAutomaticPaymentsDBData.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CobraTestBotQuotationDBData.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CobraTestNotificationsDBData.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="HolidaysTestDBData.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SsoEmpresasTestDBData.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SsoUsersTestDBData.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  nordelta.service.middle.itau:
+    image: nordeltaservicemiddleitau
+    container_name: itau-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 65514:80
+      - 65515:443
+    networks:
+      - default
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  default:

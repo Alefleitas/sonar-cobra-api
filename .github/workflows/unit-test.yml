@@ -1,0 +1,26 @@
+name: Tests
+
+on: pull_request
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: windows-latest
+    strategy:
+      matrix: 
+        dotnet-version: ['6.0.x']
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core ${{ matrix.dotnet-version }}
+      uses: actions/setup-dotnet@v1
+      with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+    #- name: Add nordelta nuget
+    #  run: dotnet nuget add source https://nuget.pkg.github.com/nordelta/index.json -n NordeltaNuget -u rhv044 -p f56bccc0a840b30a4616ec2b25192d5782f9323d --store-password-in-clear-text
+    - name: Install dependencies
+      run: dotnet restore nordelta.cobra.webapi.sln
+    - name: Build
+      run: dotnet build nordelta.cobra.webapi.sln --configuration Release --no-restore
+    - name: Test
+      run: dotnet test nordelta.cobra.webapi.sln --no-restore --verbosity normal
+      

@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-cobra.service.mail.listener.communications-D4792DCE-F1A5-4484-BE3C-C2C8C1D3168C</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.16.1" />
+    <PackageReference Include="MailKit" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
+    <PackageReference Include="NEST" Version="7.17.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Nordelta.Monitoreo" Version="0.2.0" />
+    <PackageReference Include="Nordelta.Monitoreo.Nagios" Version="0.3.0" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="ServiceStack.Text" Version="6.0.2" />
+    <PackageReference Include="TimeZoneConverter" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="register_commaillistener.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="remove_commaillistener.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

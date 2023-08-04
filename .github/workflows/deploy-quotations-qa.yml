@@ -1,0 +1,56 @@
+name: DeployQA-quotationAPI
+
+on:
+  push:
+    branches: [ develop ]
+    paths: [ "nordelta.cobra.service.quotations/**" ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    env:
+      PROJECT_DIRECTORY_PATH: "nordelta.cobra.service.quotations"
+      IIS_SERVER_COMPUTER_NAME: ${{ secrets.QA_IIS_SERVER_COMPUTER_NAME }}
+      IIS_WEBSITE_NAME: ${{ secrets.QA_QUOTATIONS_IIS_WEBSITE_NAME }}
+      IIS_SERVER_USERNAME: ${{ secrets.QA_IIS_SERVER_USERNAME }}
+      IIS_SERVER_PASSWORD: ${{ secrets.QA_IIS_SERVER_PASSWORD }}
+      RECYCLE_APP_NAME: ${{ secrets.QA_QUOTATIONS_RECYCLE_APP_NAME }}
+      WEBSITE_CONTENT_PATH: ${{ secrets.QA_QUOTATIONS_WEBSITE_CONTENT_PATH }}
+      NORDELTA_NUGET_SOURCE: ${{ secrets.NORDELTA_NUGET_SOURCE }}
+      NORDELTA_NUGET_USER: ${{ secrets.NORDELTA_NUGET_USER }}
+      NORDELTA_NUGET_PASS: ${{ secrets.NORDELTA_NUGET_PASS }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Checking environment...
+      uses: RahulParmarRP/dotnet-build-test-msdeploy@master
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    # - name: Add Nordelta Nuget Source
+    #   run: dotnet nuget add source ${{ env.NORDELTA_NUGET_SOURCE }} -n NordeltaNuget -u ${{ env.NORDELTA_NUGET_USER }} -p ${{ env.NORDELTA_NUGET_PASS }} --store-password-in-clear-text
+    - name: Restore dependencies
+      run: dotnet restore nordelta.cobra.service.quotations.sln --runtime win-x64
+    - name: Build
+      run: dotnet build nordelta.cobra.service.quotations.sln --no-restore
+    - name: Test
+      run: dotnet test nordelta.cobra.service.quotations.sln --no-build --verbosity normal
+    - name: Publish
+      run: dotnet publish ${{ env.PROJECT_DIRECTORY_PATH }}/${{ env.PROJECT_DIRECTORY_PATH }}.csproj --configuration Release /p:EnvironmentName=QA --self-contained false --runtime win-x64 -o ./Quotation_API_Build --no-restore
+    - name: Remove files
+      run: cd Quotation_API_Build && IF exist ExchangeRateFiles ( del /S /Q ExchangeRateFiles ) && IF exist PaymentsFiles ( del /S /Q PaymentsFiles ) && cd ..
+      shell: cmd
+    - name: Remove appsettings
+      run: cd Quotation_API_Build ;if ($?) { $(Del appsettings.*.json -exclude 'appsettings.QA.json'| Out-Host; $?) -and $(cd .. |Out-Host;$?) }
+      shell: powershell
+    - name: Stop Application Pool
+      shell: cmd
+      run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="${{ env.RECYCLE_APP_NAME }}",recycleMode="StopAppPool",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",AuthType="Basic"'
+    - name: Deploy Application
+      shell: cmd
+      run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:contentPath="%CD%\Quotation_API_Build" -dest:contentPath="${{ env.WEBSITE_CONTENT_PATH }}",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",authtype="Basic" -skip:skipaction="Delete",objectname="dirPath",absolutepath="\\BankAccountFiles" -skip:skipaction="Delete",objectname="dirPath",absolutepath="\\Certificates" -skip:skipaction="Delete",objectname="dirPath",absolutepath="\\ClientFiles" -skip:skipaction="Delete",objectname="dirPath",absolutepath="\\ExchangeRateFiles" -skip:skipaction="Delete",objectname="dirPath",absolutepath="\\PaymentsFiles" -skip:skipaction="Delete",objectname="dirPath",absolutepath="\\wwwroot\\images" -skip:skipaction="Delete",objectname="dirPath",absolutepath="\\logs"' 
+    - name: Start Application Pool
+      shell: cmd
+      run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="${{ env.RECYCLE_APP_NAME }}",recycleMode="StartAppPool",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",AuthType="Basic"'  

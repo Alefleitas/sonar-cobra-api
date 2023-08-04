@@ -1,0 +1,48 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ feature/testWorkflow ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    - name: Add Nuget Source
+      run: |
+        dotnet nuget add source https://nuget.pkg.github.com/nordelta/index.json -n NordeltaNuget -u rhv044 -p f56bccc0a840b30a4616ec2b25192d5782f9323d --store-password-in-clear-text
+    - name: Run Test
+      run: dotnet test --verbosity normal
+    - name: Install dependencies for Publish
+      run: dotnet restore --runtime win-x64
+    - name: Publish
+      run: dotnet publish ./nordelta.cobra.webapi/nordelta.cobra.webapi.csproj --configuration Release --self-contained false --runtime win-x64 -o ./Cobra_API_Build --no-restore
+    - name: Remove trash
+      run: rm ./Cobra_API_Build/appsettings.json & rm ./Cobra_API_Build/appsettings.Development.json & rm ./Cobra_API_Build/appsettings.UAT.json & (rm ./Cobra_API_Build/PaymentsFiles/* ||:)
+    - name: Make zip file
+      run: zip -r Cobra_API_Build.zip ./Cobra_API_Build/
+    - name: Create Release
+      id: release_drafter
+      uses: release-drafter/release-drafter@v5.11.0
+      with:
+        config-name: release-drafter.yml
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # Upload release assets.
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.release_drafter.outputs.upload_url }}
+        asset_path: ./Cobra_API_Build.zip
+        asset_name: Cobra_API_Build.zip
+        asset_content_type: application/zip
