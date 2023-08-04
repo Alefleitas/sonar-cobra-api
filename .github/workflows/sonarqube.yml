@@ -45,12 +45,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          $slnFiles = Get-ChildItem -Path . -Recurse -Filter "*.sln" | Select-Object -ExpandProperty FullName
-          foreach ($solution in $slnFiles) {
-            $solution_folder = [System.IO.Path]::GetDirectoryName($solution)
-            Set-Location -Path $solution_folder
-            ./.sonar/scanner/dotnet-sonarscanner begin /k:"Cobra.Api" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-            dotnet build
-            ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-            Set-Location -Path $PSScriptRoot
-          }
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:"Cobra.Api" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          dotnet build
+          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
