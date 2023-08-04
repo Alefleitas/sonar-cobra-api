@@ -44,8 +44,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
         run: |
-          for solution in $(find . -maxdepth 1 -name "*.sln"); do
+          $slnFiles = Get-ChildItem -Path . -Recurse -Filter "*.sln" | Select-Object -ExpandProperty FullName
+          foreach ($solution in $slnFiles) {
             ./.sonar/scanner/dotnet-sonarscanner begin /k:"Cobra.Api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
             dotnet build "$solution"
             ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-          done
+          }
