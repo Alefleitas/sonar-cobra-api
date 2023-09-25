@@ -52,6 +52,7 @@ namespace nordelta.cobra.webapi.Models
         public string WorkStarted { get; set; }
         public string RazonSocial { get; set; }
         public string ClientReference { get; set; }
+        public string IsForeign { get; set; }
 
         public virtual List<CvuEntity> CvuEntities { get; set; }
 
