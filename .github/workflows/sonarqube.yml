@@ -51,3 +51,26 @@ jobs:
             dotnet build "$solution"
             ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
           }
+
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Estado del Análisis de SonarQube: ${{ fromJson(env.status).projectStatus.status == 'OK' && '✅ Exitoso' || '❌ Fallido' }}
+            Métricas de condición:
+              - :dart: Nuevo Índice de Fiabilidad
+                Estado: ${{ fromJson(env.status).projectStatus.conditions[0].status == 'OK' && '✅ Exitoso' || '❌ Fallido' }}
+                Umbral de Error: ${{ fromJson(env.status).projectStatus.conditions[0].errorThreshold }} (Cuanto menor es mejor)
+                Valor Actual: ${{ fromJson(env.status).projectStatus.conditions[0].actualValue }}
+              - :shield: Nuevo Índice de Seguridad
+                Estado: ${{ fromJson(env.status).projectStatus.conditions[1].status == 'OK' && '✅ Exitoso' || '❌ Fallido' }}
+                Umbral de Error: ${{ fromJson(env.status).projectStatus.conditions[1].errorThreshold }} (Cuanto menor es mejor)
+                Valor Actual: ${{ fromJson(env.status).projectStatus.conditions[1].actualValue }}
+              - :hammer_and_wrench: Nuevo Índice de Mantenibilidad
+                Estado: ${{ fromJson(env.status).projectStatus.conditions[2].status == 'OK' && '✅ Exitoso' || '❌ Fallido' }}
+                Umbral de Error: ${{ fromJson(env.status).projectStatus.conditions[2].errorThreshold }} (Cuanto menor es mejor)
+                Valor Actual: ${{ fromJson(env.status).projectStatus.conditions[2].actualValue }}
+              - :page_facing_up: Nueva Densidad de Líneas Duplicadas
+                Estado: ${{ fromJson(env.status).projectStatus.conditions[3].status == 'OK' && '✅ Exitoso' || '❌ Fallido' }}
+                Umbral de Error: ${{ fromJson(env.status).projectStatus.conditions[3].errorThreshold }} (Cuanto menor es mejor)
+                Valor Actual: ${{ fromJson(env.status).projectStatus.conditions[3].actualValue }}
