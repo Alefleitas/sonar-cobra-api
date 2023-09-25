@@ -51,3 +51,48 @@ jobs:
             dotnet build "$solution"
             ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
           }
+
+      - name: Get SonarQube Measures JSON
+        id: sonarqube_measures_json
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          $sonarqubeMeasuresJson = Invoke-RestMethod -Uri "${{ secrets.SONAR_HOST_URL }}/api/measures/component?component=${{ secrets.SONAR_PROJECT_KEY }}" -Headers @{"Authorization" = "Bearer $env:SONAR_TOKEN"}
+          $sonarqubeMeasuresJson | ConvertTo-Json | Set-Content -Path sonarqube_measures.json
+
+      - name: Comment PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = github.context.repo;
+            const prNumber = github.context.payload.pull_request.number;
+
+            // Leer el archivo sonarqube_measures.json
+            const fs = require('fs');
+            const measuresJson = JSON.parse(fs.readFileSync('sonarqube_measures.json', 'utf8'));
+
+            // Construir el comentario
+            const comment = `
+              Estado del Análisis de SonarQube: ${measuresJson.projectStatus.status == 'OK' ? '✅ Exitoso' : '❌ Fallido'}
+              Métricas de condición:
+                - :dart: Nuevo Índice de Fiabilidad
+                  Estado: ${measuresJson.projectStatus.conditions[0].status == 'OK' ? '✅ Exitoso' : '❌ Fallido'}
+                  Umbral de Error: ${measuresJson.projectStatus.conditions[0].errorThreshold} (Cuanto menor es mejor)
+                  Valor Actual: ${measuresJson.projectStatus.conditions[0].actualValue}
+                - :shield: Nuevo Índice de Seguridad
+                  Estado: ${measuresJson.projectStatus.conditions[1].status == 'OK' ? '✅ Exitoso' : '❌ Fallido'}
+                  Umbral de Error: ${measuresJson.projectStatus.conditions[1].errorThreshold} (Cuanto menor es mejor)
+                  Valor Actual: ${measuresJson.projectStatus.conditions[1].actualValue}
+                - :hammer_and_wrench: Nuevo Índice de Mantenibilidad
+                  Estado: ${measuresJson.projectStatus.conditions[2].status == 'OK' ? '✅ Exitoso' : '❌ Fallido'}
+                  Umbral de Error: ${measuresJson.projectStatus.conditions[2].errorThreshold} (Cuanto menor es mejor)
+                  Valor Actual: ${measuresJson.projectStatus.conditions[2].actualValue}
+                - :page_facing_up: Nueva Densidad de Líneas Duplicadas
+                  Estado: ${measuresJson.projectStatus.conditions[3].status == 'OK' ? '✅ Exitoso' : '❌ Fallido'}
+                  Umbral de Error: ${measuresJson.projectStatus.conditions[3].errorThreshold} (Cuanto menor es mejor)
+                  Valor Actual: ${measuresJson.projectStatus.conditions[3].actualValue}
+            `;
+
+            // Agregar el comentario a la PR
+            await github.issues.createComment({ owner, repo, issue_number: prNumber, body: comment });
