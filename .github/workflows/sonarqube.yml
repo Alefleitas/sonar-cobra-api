@@ -52,9 +52,16 @@ jobs:
           $slnFiles = Get-ChildItem -Path . -Recurse -Filter "*.sln" | Select-Object -ExpandProperty FullName
           foreach ($solution in $slnFiles) {
 
-            ./.sonar/scanner/dotnet-sonarscanner begin /k:"Cobra.Api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
-            ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+            # Verificar si el nombre de la solución no es igual al que quieres omitir
+            if ($solution -ne "./cobra.service.mail.listener.communications.sln") {
+              ./.sonar/scanner/dotnet-sonarscanner begin /k:"Cobra.Api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+              # Omitir el comando 'dotnet restore'
+              # Omitir el comando 'dotnet build'
+              ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+            }
+
           }
+
 
       - name: Obtener SonarQube Quality Gate Status
         id: sonarqube_status
