@@ -52,8 +52,6 @@ jobs:
           $slnFiles = Get-ChildItem -Path . -Recurse -Filter "*.sln" | Select-Object -ExpandProperty FullName
           foreach ($solution in $slnFiles) {
             ./.sonar/scanner/dotnet-sonarscanner begin /k:"Cobra.Api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
-            dotnet restore "$solution"
-            dotnet build "$solution"
             ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
           }
 
