@@ -43,22 +43,21 @@ jobs:
       
       - name: Actualizar NuGet
         run: nuget update -self
-
-    
+        
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
         run: |
           $slnFiles = Get-ChildItem -Path . -Recurse -Filter "*.sln" | Select-Object -ExpandProperty FullName
           foreach ($solution in $slnFiles) {
-           
-              ./.sonar/scanner/dotnet-sonarscanner begin /k:"Cobra.Api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"       
+          if ($solution -like "*nordelta.cobra.webapi.sln") {
+              ./.sonar/scanner/dotnet-sonarscanner begin /k:"Cobra.Api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
               dotnet build "$solution"
               ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-            
+            } else {
+              echo "Omitiendo análisis para $solution"
+            }
           }
-
-
       - name: Obtener SonarQube Quality Gate Status
         id: sonarqube_status
         env:
