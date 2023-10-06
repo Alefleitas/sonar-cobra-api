@@ -55,6 +55,9 @@ jobs:
               (Get-Content nuget.config) | ForEach-Object {
               $_ -replace 'key="ClearTextPassword" value="[^"]*"', 'key="ClearTextPassword" value="${{ secrets.NUGET_TOKEN }}"'
               } | Set-Content nuget.config
+              (Get-Content nuget.config) | ForEach-Object {
+              $_ -replace 'key="Username" value="[^"]*"', 'key="Username" value="${{ secrets.NUGET_USERNAME }}"'
+              } | Set-Content nuget.config
               dotnet build "$solution"
               ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
             } else {
