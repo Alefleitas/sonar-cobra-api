@@ -51,7 +51,7 @@ jobs:
           $slnFiles = Get-ChildItem -Path . -Recurse -Filter "*.sln" | Select-Object -ExpandProperty FullName
           foreach ($solution in $slnFiles) {
           if ($solution -like "*nordelta.cobra.webapi.sln") {
-              ./.sonar/scanner/dotnet-sonarscanner begin /k:"cobra.api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+              ./.sonar/scanner/dotnet-sonarscanner begin /k:"cobra-api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
               (Get-Content nuget.config) | ForEach-Object {
               $_ -replace 'key="ClearTextPassword" value="[^"]*"', 'key="ClearTextPassword" value="${{ secrets.NUGET_TOKEN }}"'
               } | Set-Content nuget.config
