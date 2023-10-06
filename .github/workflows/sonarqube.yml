@@ -45,15 +45,29 @@ jobs:
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
           
       - name: Build and analyze
-        shell: powershell
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"cobra.api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
-          (Get-Content nuget.config) | ForEach-Object {
-          $_ -replace 'key="ClearTextPassword" value="[^"]*"', 'key="ClearTextPassword" value="${{ secrets.NUGET_TOKEN }}"'
-          } | Set-Content nuget.config
-          dotnet restore
-          dotnet build nordelta.cobra.webapi.sln
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          $slnFiles = Get-ChildItem -Path . -Recurse -Filter "*.sln" | Select-Object -ExpandProperty FullName
+          foreach ($solution in $slnFiles) {
+          if ($solution -like "*nordelta.cobra.webapi.sln") {
+              ./.sonar/scanner/dotnet-sonarscanner begin /k:"cobra.api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+              (Get-Content nuget.config) | ForEach-Object {
+              $_ -replace 'key="ClearTextPassword" value="[^"]*"', 'key="ClearTextPassword" value="${{ secrets.NUGET_TOKEN }}"'
+              } | Set-Content nuget.config
+              dotnet build "$solution"
+              ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+            } else {
+              echo "Omitiendo análisis para $solution"
+            }
+          }
+      - name: Obtener SonarQube Quality Gate Status
+        id: sonarqube_status
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          curl -X GET -u "${SONAR_TOKEN}": -o quality-gate.json "${{ secrets.SONAR_HOST_URL }}"/api/qualitygates/project_status?projectKey="${{secrets.SONAR_PROJECT_KEY}}"
+          echo "status=$(cat quality-gate.json)" >> $GITHUB_ENV     
   print:
     runs-on: ubuntu-latest
     needs: build 
