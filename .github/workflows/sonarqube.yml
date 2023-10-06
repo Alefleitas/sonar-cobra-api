@@ -47,7 +47,7 @@ jobs:
       - name: Build and analyze
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"sgc-api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"cobra.api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
           (Get-Content nuget.config) | ForEach-Object {
           $_ -replace 'key="ClearTextPassword" value="[^"]*"', 'key="ClearTextPassword" value="${{ secrets.NUGET_TOKEN }}"'
           } | Set-Content nuget.config
